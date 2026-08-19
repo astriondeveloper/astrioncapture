@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Design tokens - dark theme process spine template
+   Swap these values for your own brand palette. Component styles reference
+   the variable names only, never the literals.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('../fonts/Archivo-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('../fonts/Archivo-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('../fonts/Archivo-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('../fonts/Archivo-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* Surfaces */
+  --ground:    #101820;  /* page ground */
+  --surface:   #1E2436;  /* card surface over ground */
+  --surface-2: #222230;
+
+  /* Type */
+  --ink:       #F1E9DB;  /* primary */
+  --ink-2:     #DDDDDD;
+  --ink-3:     #BDBDBD;  /* dim labels; avoid for small body text */
+
+  /* Accents, used sparingly */
+  --go:        #29AAE1;  /* interactive elements */
+  --warn:      #FFAF2E;  /* highlights, decisions */
+  --stop:      #FC5442;  /* alerts, does-not-apply */
+
+  /* Gradient stops, thin accent elements only, never a background */
+  --grad-1:    #1ED872;
+  --grad-2:    #4DD3F7;
+  --grad-3:    #9382F9;
+
+  /* Semantic aliases for rating bands. */
+  --rate-green: var(--grad-1);
+  --rate-amber: var(--warn);
+  --rate-red:   var(--stop);
+
+  /* Type */
+  --font-sans: 'Archivo', Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  /* Rhythm */
+  --gutter: clamp(1.25rem, 3vw, 3rem);
+  --radius: 2px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 420ms;
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur: 0ms; }
+}

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process Spine | Layout template</title>
+<meta name="description" content="A reusable dark-theme layout for a staged, gated process.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/spine.css">
+</head>
+<body>
+
+<!-- =========================================================================
+     TEMPLATE ONLY. This file contains no organisational process content.
+     Stage names, gate names, questions, criteria, authority, and scoring are
+     deliberately placeholders. Populate them in SharePoint, never here.
+     ========================================================================= -->
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="label" style="margin:0">Process spine &middot; layout template</p>
+  </header>
+
+  <p class="eyebrow"><span class="diamond">&#9670;</span> DESIGN SYSTEM // PROCESS SPINE // TEMPLATE</p>
+
+  <h1>Stages define work.<br><span class="accent">Gates define decisions.</span></h1>
+
+  <p class="lede">
+    A reusable layout for any staged, gated process. Stages are circles because they are periods of
+    work. Gates are diamonds because they are decisions. Content is filled in from the organisation's
+    own system of record, not from this file.
+  </p>
+
+  <!-- ---------------- mode switch ---------------- -->
+  <div class="modebar bracket">
+    <span class="label">Gate set</span>
+    <div class="switch" role="group" aria-label="Choose gate set">
+      <button type="button" id="btn-full" aria-pressed="true">Full set</button>
+      <button type="button" id="btn-lean" aria-pressed="false">Reduced set</button>
+    </div>
+    <p class="modenote" id="modenote">
+      Switch the gate set to see which decisions apply under each variant.
+    </p>
+  </div>
+
+  <!-- ---------------- the rail ---------------- -->
+  <p class="label" style="margin:0 0 .35rem">// PROCESS SPINE &middot; STAGE 0 THROUGH STAGE 9</p>
+  <div class="rail">
+    <div class="rail-phases" aria-hidden="true">
+      <span style="grid-column: span 4">Phase 1</span>
+      <span style="grid-column: span 6">Phase 2</span>
+      <span style="grid-column: span 4">Phase 3</span>
+      <span style="grid-column: span 2">Phase 4</span>
+    </div>
+    <div class="rail-track">
+      <span class="pulse" aria-hidden="true"></span>
+
+      <a class="node" data-kind="stage" data-sp="0"><span class="mark"></span><span class="cap">00<br>Stage</span></a>
+      <a class="node" data-kind="stage" data-sp="1"><span class="mark"></span><span class="cap">01<br>Stage</span></a>
+      <a class="node" data-kind="stage" data-sp="2"><span class="mark"></span><span class="cap">02<br>Stage</span></a>
+      <a class="node" data-kind="gate"  data-sp="g1"><span class="mark"></span><span class="cap">Gate 1<br>Decision</span></a>
+      <a class="node" data-kind="stage" data-sp="3"><span class="mark"></span><span class="cap">03<br>Stage</span></a>
+      <a class="node" data-kind="gate"  data-sp="g2" data-lean="na"><span class="mark"></span><span class="cap">Gate 2<br>Decision</span></a>
+      <a class="node" data-kind="stage" data-sp="4"><span class="mark"></span><span class="cap">04<br>Stage</span></a>
+      <a class="node" data-kind="gate"  data-sp="g3" data-lean="na"><span class="mark"></span><span class="cap">Gate 3<br>Decision</span></a>
+      <a class="node" data-kind="stage" data-sp="5"><span class="mark"></span><span class="cap">05<br>Stage</span></a>
+      <a class="node" data-kind="gate"  data-sp="g4"><span class="mark"></span><span class="cap">Gate 4<br>Decision</span></a>
+      <a class="node" data-kind="stage" data-sp="6"><span class="mark"></span><span class="cap">06<br>Stage</span></a>
+      <a class="node" data-kind="review" data-sp="ct"><span class="mark"></span><span class="cap">Review<br>Set</span></a>
+      <a class="node" data-kind="stage" data-sp="7"><span class="mark"></span><span class="cap">07<br>Stage</span></a>
+      <a class="node" data-kind="gate"  data-sp="g5"><span class="mark"></span><span class="cap">Gate 5<br>Decision</span></a>
+      <a class="node" data-kind="stage" data-sp="8"><span class="mark"></span><span class="cap">08<br>Stage</span></a>
+      <a class="node" data-kind="stage" data-sp="9"><span class="mark"></span><span class="cap">09<br>Stage</span></a>
+    </div>
+  </div>
+
+  <!-- ---------------- stage cards ---------------- -->
+  <ul class="grid">
+
+    <li class="card">
+      <span class="stagenum">Stage 00</span>
+      <h3>Stage 00 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 01</span>
+      <h3>Stage 01 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 02</span>
+      <h3>Stage 02 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+      <div class="gatechip" data-kind="gate">
+        <span class="gname">Gate 1</span>
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 03</span>
+      <h3>Stage 03 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+      <div class="gatechip" data-kind="gate" data-lean="na">
+        <span class="gname">Gate 2</span>
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 04</span>
+      <h3>Stage 04 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+      <div class="gatechip" data-kind="gate" data-lean="na">
+        <span class="gname">Gate 3</span>
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 05</span>
+      <h3>Stage 05 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+      <div class="gatechip" data-kind="gate">
+        <span class="gname">Gate 4</span>
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 06</span>
+      <h3>Stage 06 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+      <div class="gatechip" data-kind="review">
+        <span class="gname">Review Set</span>
+        <p class="q">The single question this decision answers.</p>
+      </div>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 07</span>
+      <h3>Stage 07 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+      <div class="gatechip" data-kind="gate">
+        <span class="gname">Gate 5</span>
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 08</span>
+      <h3>Stage 08 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+    </li>
+
+    <li class="card">
+      <span class="stagenum">Stage 09</span>
+      <h3>Stage 09 name</h3>
+      <p class="out"><span class="k">Output &middot;</span> Primary output of this stage.</p>
+    </li>
+
+  </ul>
+
+  <!-- ---------------- reviews ---------------- -->
+  <p class="label" style="margin:0 0 .8rem">// REVIEW SET &middot; PLACEHOLDER</p>
+  <ul class="grid">
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review"><p class="q">The single question this decision answers.</p></div>
+    </li>
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review"><p class="q">The single question this decision answers.</p></div>
+    </li>
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review" data-lean="na">
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review">
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review" data-lean="na">
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review" data-lean="na">
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+    <li class="card">
+      <span class="stagenum">Review</span>
+      <h3>Review name</h3>
+      <p class="out">What this review asks.</p>
+      <div class="gatechip" data-kind="review">
+        <p class="q">The single question this decision answers.</p>
+        <p class="na-flag">Applies on this gate set</p>
+      </div>
+    </li>
+  </ul>
+
+  <hr class="gradrule">
+
+  <footer class="foot">
+    <p class="slogan">Process spine</p>
+    <p>Template only. All process content lives in the organisation's system of record.</p>
+  </footer>
+
+</div>
+
+<script src="assets/js/spine.js" defer></script>
+</body>
+</html>
