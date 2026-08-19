@@ -1,0 +1,369 @@
+/* ==========================================================================
+   Process spine - stage and gate rail
+   Depends on tokens.css. No color literals below this line.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient field, painted not imaged. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 85% -10%, rgba(147,130,249,0.16), transparent 60%),
+    radial-gradient(80% 70% at 10% 0%, rgba(41,170,225,0.10), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--gutter);
+}
+
+/* ---------- shared type ---------- */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--go);
+  margin: 0 0 1.25rem;
+}
+.eyebrow .diamond { color: var(--go); }
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5.2vw, 3.9rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.1rem;
+  max-width: 20ch;
+}
+h1 .accent { color: var(--go); }
+
+.lede {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--ink-2);
+  max-width: 62ch;
+  margin: 0 0 2rem;
+}
+
+/* ---------- header ---------- */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 2.5rem;
+}
+.masthead img { height: 26px; width: auto; display: block; }
+
+/* ---------- corner bracket frame ---------- */
+
+.bracket { position: relative; }
+.bracket::before, .bracket::after {
+  content: "";
+  position: absolute;
+  width: 14px; height: 14px;
+  border: 1px solid var(--go);
+  opacity: 0.5;
+}
+.bracket::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.bracket::after  { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+/* ---------- mode switch ---------- */
+
+.modebar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.15rem;
+  margin-bottom: 2.5rem;
+  background: var(--surface);
+  border: 1px solid rgba(241,233,219,0.09);
+  border-radius: var(--radius);
+}
+.modebar .label { margin-right: auto; }
+
+.switch { display: inline-flex; border: 1px solid rgba(241,233,219,0.16); border-radius: var(--radius); overflow: hidden; }
+.switch button {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.95rem;
+  background: transparent;
+  color: var(--ink-3);
+  border: 0;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.switch button[aria-pressed="true"] { background: var(--go); color: var(--ground); font-weight: 600; }
+.switch button:focus-visible { outline: 2px solid var(--warn); outline-offset: -2px; }
+
+.modenote { font-size: 0.85rem; color: var(--ink-3); flex-basis: 100%; margin: 0; }
+
+/* ---------- the rail ---------- */
+
+.rail {
+  position: relative;
+  margin: 0 0 3.25rem;
+  padding: 0.25rem 0 0.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.rail-phases,
+.rail-track {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(74px, 1fr));
+  min-width: 1120px;
+  gap: 0;
+}
+.rail-phases { margin-bottom: 1.1rem; }
+.rail-phases span {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 0.3rem 0 0.4rem;
+  border-top: 1px solid rgba(241,233,219,0.12);
+  border-left: 1px solid rgba(241,233,219,0.12);
+  padding-left: 0.6rem;
+}
+.rail-phases span:last-child { border-right: 1px solid rgba(241,233,219,0.12); }
+.rail-track { position: relative; align-items: start; }
+/* the line itself */
+.rail-track::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 15px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--go) 0%, var(--grad-2) 28%, var(--warn) 62%, var(--grad-1) 100%);
+  opacity: 0.55;
+}
+
+.node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.2rem;
+  text-decoration: none;
+  color: inherit;
+}
+.node:focus-visible { outline: 2px solid var(--warn); outline-offset: 4px; border-radius: var(--radius); }
+
+.node .mark {
+  position: relative;
+  width: 32px; height: 32px;
+  display: grid;
+  place-items: center;
+}
+/* stage marker: circle, a period of work */
+.node[data-kind="stage"] .mark::after {
+  content: "";
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 2px solid var(--go);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+/* gate marker: diamond, a decision. The shape must not lie about the process. */
+.node[data-kind="gate"] .mark::after {
+  content: "";
+  width: 17px; height: 17px;
+  transform: rotate(45deg);
+  background: var(--warn);
+  box-shadow: 0 0 0 4px rgba(255,175,46,0.18);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.node[data-kind="review"] .mark::after {
+  content: "";
+  width: 15px; height: 15px;
+  transform: rotate(45deg);
+  background: var(--ground);
+  border: 2px solid var(--grad-3);
+  transition: transform var(--dur) var(--ease);
+}
+
+.node .cap {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: center;
+  line-height: 1.35;
+  transition: color var(--dur) var(--ease);
+}
+
+.node[data-kind="gate"] .cap { color: var(--ink-2); }
+.node:hover .cap, .node:focus-visible .cap { color: var(--ink); }
+.node:hover[data-kind="stage"] .mark::after { transform: scale(1.25); box-shadow: 0 0 0 4px rgba(41,170,225,0.18); }
+.node:hover[data-kind="gate"] .mark::after  { transform: rotate(45deg) scale(1.2); box-shadow: 0 0 0 5px rgba(255,175,46,0.26); }
+
+/* travelling pulse */
+.pulse {
+  position: absolute;
+  top: 12px; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--grad-2);
+  box-shadow: 0 0 10px 3px rgba(77,211,247,0.55);
+  animation: travel 7s linear infinite;
+  pointer-events: none;
+}
+@keyframes travel {
+  0%   { left: 0%;   opacity: 0; }
+  6%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* ---------- stage cards ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 1rem;
+  margin: 0 0 3rem;
+  padding: 0;
+  list-style: none;
+  align-items: start;
+}
+
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid rgba(241,233,219,0.09);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.card:hover { border-color: rgba(41,170,225,0.5); transform: translateY(-2px); }
+
+.card .stagenum {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--go);
+}
+.card h3 { margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 1.25; }
+.card .out { margin: 0; font-size: 0.85rem; color: var(--ink-2); }
+.card .out .k { color: var(--ink-3); }
+
+.gatechip {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(241,233,219,0.09);
+}
+.gatechip .gname {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--warn);
+  border: 1px solid rgba(255,175,46,0.45);
+  border-radius: var(--radius);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.gatechip[data-kind="review"] .gname { color: var(--grad-3); border-color: rgba(147,130,249,0.45); }
+.gatechip .q { margin: 0; font-size: 0.85rem; color: var(--ink); }
+
+/* Reduced gate set. Which nodes drop out is marked in the markup, not here.
+   Driven by data-mode on <body>, set by spine.js. Default (no JS) is the full set. */
+body[data-mode="lean"] [data-lean="na"] { opacity: 0.4; }
+body[data-mode="lean"] .gatechip[data-lean="na"] .gname { color: var(--ink-3); border-color: rgba(189,189,189,0.3); }
+body[data-mode="lean"] .card:has(.gatechip[data-lean="na"]) { border-style: dashed; }
+
+.na-flag {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0.45rem 0 0;
+}
+body[data-mode="lean"] .na-flag { display: block; color: var(--rate-green); }
+body[data-mode="lean"] .gatechip[data-lean="na"] .na-flag { color: var(--rate-red); }
+
+/* ---------- footer ---------- */
+
+.foot {
+  border-top: 1px solid rgba(241,233,219,0.09);
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: baseline;
+}
+.foot p { margin: 0; font-size: 0.8rem; color: var(--ink-3); }
+.slogan { font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.gradrule {
+  height: 2px; border: 0; margin: 2.5rem 0 1.25rem;
+  background: linear-gradient(90deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
+  opacity: 0.75;
+}
+
+a.deep { color: var(--go); text-decoration: none; border-bottom: 1px solid rgba(41,170,225,0.35); }
+a.deep:hover { border-bottom-color: var(--go); }
+a.deep:focus-visible { outline: 2px solid var(--warn); outline-offset: 2px; }
+
+/* ---------- no-JS ---------- */
+.js-only { display: none; }
+.has-js .js-only { display: revert; }
+.has-js .nojs-only { display: none; }
+
+/* ---------- motion and narrow viewports ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse { display: none; }
+  .card, .node .mark::after, .node .cap { transition: none; }
+  .card:hover { transform: none; }
+}
+
+@media (max-width: 900px) {
+  .rail { padding-top: 1.5rem; }
+  .rail-track { min-width: 1120px; }
+  .masthead { padding-bottom: 1.75rem; }
+}
